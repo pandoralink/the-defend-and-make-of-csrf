@@ -1,21 +1,25 @@
 <body>
-  <button onclick="getUsers()">请求</button>
+  <form>
+    username: <input type="text" name="username" /><br />
+    password: <input type="password" name="password" /><br />
+    <button type="button" onclick="login()">登录</button>
+  </form>
 </body>
 <script>
-  const getUsers = () => {
-    let clientIframe = document.getElementById("clientIframe");
-    if (!clientIframe) {
-      clientIframe = document.createElement("iframe");
-      clientIframe.id = "clientIframe";
-      clientIframe.style.display = "none";
-      clientIframe.src = "http://localhost:3001/data.html#users";
-      document.body.appendChild(clientIframe);
-    } else {
-      clientIframe.src = "http://localhost:3001/data.html#users";
-    }
-
-    window.addEventListener("hashchange", function (e) {
-      console.log("返回响应", location.hash.substring(1));
-    });
+  const login = () => {
+    const username = document.getElementsByName("username")[0].value;
+    const password = document.getElementsByName("password")[0].value;
+    console.log(username, password);
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:3000/user/login");
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          window.location.href = "/user.html";
+        }
+      }
+    };
+    xhr.send(JSON.stringify({ username, password }));
   };
 </script>

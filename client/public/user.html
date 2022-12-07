@@ -1,0 +1,77 @@
+<body>
+  昵称：<span class="name"></span>
+  <input class="name-input" type="text" style="display: none" />
+  <br />
+  <button class="button" onclick="handleModifyName()">修改昵称</button>
+  <button
+    class="confirm-button"
+    onclick="confirmModifyName()"
+    style="display: none"
+  >
+    确认修改
+  </button>
+</body>
+<script>
+  const name = document.querySelector(".name");
+  const nameInput = document.querySelector(".name-input");
+  const button = document.querySelector(".button");
+  const confirmButton = document.querySelector(".confirm-button");
+  const getName = () => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost:3000/user/name");
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          name.innerText = xhr.response;
+        }
+      }
+    };
+    xhr.send();
+  };
+  const updateName = () => {
+    const username = document.getElementsByName("username")[0].value;
+    const password = document.getElementsByName("password")[0].value;
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:3000/user/login");
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          window.location.href = "/user.html";
+        }
+      }
+    };
+    xhr.send(JSON.stringify({ username, password }));
+  };
+  const handleModifyName = () => {
+    if (button.innerText === "取消修改") {
+      name.style.display = "initial";
+      nameInput.style.display = "none";
+      confirmButton.style.display = "none";
+      button.innerText = "修改昵称";
+      getName();
+    } else {
+      name.style.display = "none";
+      nameInput.style.display = "initial";
+      confirmButton.style.display = "initial";
+      nameInput.value = name.innerText;
+      button.innerText = "取消修改";
+    }
+  };
+  const confirmModifyName = () => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:3000/user/name");
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          handleModifyName();
+        }
+      }
+    };
+    xhr.send(JSON.stringify({ name: nameInput.value }));
+  };
+
+  // 初次加载
+  getName();
+</script>
