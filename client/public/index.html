@@ -1,0 +1,21 @@
+<body>
+  <button onclick="getUsers()">请求</button>
+</body>
+<script>
+  const getUsers = () => {
+    let clientIframe = document.getElementById("clientIframe");
+    if (!clientIframe) {
+      clientIframe = document.createElement("iframe");
+      clientIframe.id = "clientIframe";
+      clientIframe.style.display = "none";
+      clientIframe.src = "http://localhost:3001/data.html#users";
+      document.body.appendChild(clientIframe);
+    } else {
+      clientIframe.src = "http://localhost:3001/data.html#users";
+    }
+
+    window.addEventListener("hashchange", function (e) {
+      console.log("返回响应", location.hash.substring(1));
+    });
+  };
+</script>

@@ -1,0 +1,10 @@
+<body></body>
+<script>
+  // 初次加载
+  parent.parent.location.hash = self.location.hash.substring(1);
+
+  // 重复调用
+  window.addEventListener("hashchange", function (e) {
+    parent.parent.location.hash = self.location.hash.substring(1);
+  });
+</script>
