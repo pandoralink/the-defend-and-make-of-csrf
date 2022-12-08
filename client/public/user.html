@@ -28,21 +28,6 @@
     };
     xhr.send();
   };
-  const updateName = () => {
-    const username = document.getElementsByName("username")[0].value;
-    const password = document.getElementsByName("password")[0].value;
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:3000/user/login");
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-          window.location.href = "/user.html";
-        }
-      }
-    };
-    xhr.send(JSON.stringify({ username, password }));
-  };
   const handleModifyName = () => {
     if (button.innerText === "取消修改") {
       name.style.display = "initial";

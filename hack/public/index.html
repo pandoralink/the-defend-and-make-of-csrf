@@ -1,58 +1,13 @@
-<body></body>
+<body>
+  <!-- <form action="http://localhost:3000/user/name" method="POST">
+    <input type="hidden" name="name" value="憨批龟" />
+  </form> -->
+</body>
 <script>
-  // 初次加载
-  switch (location.hash) {
-    case "#users":
-      callback("users");
-      break;
-  }
-
-  // 重复调用
-  window.addEventListener("hashchange", function (e) {
-    switch (location.hash) {
-      case "#users":
-        callback("users");
-        break;
-    }
-  });
-
-  /**
-   * iframe 跨域回调
-   * @param {string} path 请求路径
-   */
-  function callback(path) {
-    console.log("in");
-    try {
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", `http://localhost:3001/${path}`);
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            // ie, chrome 下的安全机制无法修改 parent.location.hash
-            // 所以要利用一个中间的代理 iframe
-            let proxyIframe = document.getElementById("proxyIframe");
-            if (!proxyIframe) {
-              proxyIframe = document.createElement("iframe");
-              proxyIframe.id = "proxyIframe";
-              proxyIframe.style.display = "none";
-              proxyIframe.src =
-                "http://localhost:3000/proxy.html#" +
-                Math.floor(Math.random() * 100) +
-                xhr.response; // 该文件在 client 域名的域下
-              document.body.appendChild(proxyIframe);
-            } else {
-              proxyIframe.src =
-                "http://localhost:3000/proxy.html#" +
-                Math.floor(Math.random() * 100) +
-                xhr.response;
-            }
-            location.hash = "";
-          }
-        }
-      };
-      xhr.send();
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  // document.forms[0].submit();
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "http://localhost:3000/user/name");
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.withCredentials = true;
+  xhr.send(JSON.stringify({ name: "憨批龟" }));
 </script>

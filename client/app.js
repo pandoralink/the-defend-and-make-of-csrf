@@ -3,6 +3,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var usersRouter = require("./routes/users");
+var initRouter = require("./routes/init");
 
 var app = express();
 
@@ -14,14 +15,15 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
   const { userId } = req.signedCookies;
-  if (req.path !== "/user/login" && !userId) {
-    res.status(404);
+  if (req.path !== "/user/login" && req.path !== "/init" && !userId) {
+    res.status(403);
     res.send("error");
   } else {
     next();
   }
 });
 
+app.use("/", initRouter);
 app.use("/user", usersRouter);
 
 module.exports = app;

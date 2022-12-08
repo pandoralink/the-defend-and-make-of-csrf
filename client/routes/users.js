@@ -1,7 +1,6 @@
 const express = require("express");
+const useName = require("../utils/useName");
 const router = express.Router();
-
-let name = "杰尼龟";
 
 router.post("/login", function (req, res, next) {
   const { username, password } = req.body;
@@ -14,13 +13,16 @@ router.post("/login", function (req, res, next) {
 });
 
 router.get("/name", function (req, res, next) {
+  const [name, setName] = useName();
+
   res.send(name);
 });
 
 router.post("/name", function (req, res, next) {
+  const [name, setName] = useName();
   const { name: updateName } = req.body;
-  name = updateName;
-  res.send(name);
+
+  res.send(setName(updateName));
 });
 
 module.exports = router;
