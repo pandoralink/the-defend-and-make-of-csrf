@@ -4,13 +4,14 @@
   "description": "iframe 跨域客户端",
   "main": "index.js",
   "scripts": {
-    "start": "set PORT=3000 && node ./bin/www"
+    "start": "set PORT=3000 && node -r dotenv/config ./bin/www"
   },
   "author": "poplink",
   "license": "MIT",
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
     "express": "~4.16.1",
     "express-jwt": "^7.7.7",
     "jsonwebtoken": "^8.5.1",

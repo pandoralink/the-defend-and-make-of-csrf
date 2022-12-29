@@ -16,13 +16,21 @@ app.use(cookieParser("2022-12-07-22:08"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   jwt({ secret: jwtConfig.jwtSecretKey, algorithms: ["HS256"] }).unless({
-    path: [/^\/v/, /^\/user\/login/],
+    path: [/^\/v/, /^\/user\/login/, /^\/user\/v3\/login/, /\/favicon\.ico/],
   })
 );
 
 app.use((req, res, next) => {
   const { userId } = req.signedCookies;
-  if (req.path !== "/user/login" && req.path !== "/init" && !userId) {
+  // 兼容 v3 token 鉴权版本和 v2 cookie 鉴权版本
+  if (
+    req.path !== "/favicon.ico" &&
+    req.path !== "/user/login" &&
+    req.path !== "/user/v3/login" &&
+    req.path !== "/user/follow" &&
+    req.path !== "/init" &&
+    !userId
+  ) {
     res.status(403);
     res.send("error");
   } else {

@@ -1,0 +1,25 @@
+<body>
+  <form>
+    username: <input type="text" name="username" /><br />
+    password: <input type="password" name="password" /><br />
+    <button type="button" onclick="login()">登录</button>
+  </form>
+</body>
+<script>
+  const login = () => {
+    const username = document.getElementsByName("username")[0].value;
+    const password = document.getElementsByName("password")[0].value;
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:3000/user/v3/login");
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          localStorage.setItem("token", JSON.parse(xhr.response).data.token);
+          window.location.href = "/user.html";
+        }
+      }
+    };
+    xhr.send(JSON.stringify({ username, password }));
+  };
+</script>

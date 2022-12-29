@@ -1,0 +1,27 @@
+<body>
+  fans: <span class="fansTotal"></span>
+  <button class="follow" onclick="handleFollowClick()">Follow</button>
+</body>
+<script>
+  const fansTotal = document.querySelector(".fansTotal");
+  const followBtn = document.querySelector(".follow");
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", "http://localhost:3000/user/follow");
+  xhr.setRequestHeader("Authorization", localStorage.getItem("token"));
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        name.innerText = xhr.response;
+      }
+    }
+  };
+  xhr.send();
+
+  const handleFollowClick = () => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:3000/user/follow");
+    xhr.setRequestHeader("Authorization", localStorage.getItem("token"));
+    xhr.send();
+  };
+</script>
