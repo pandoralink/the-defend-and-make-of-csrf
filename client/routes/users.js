@@ -73,9 +73,9 @@ router.get("/follow", function (req, res, next) {
 });
 
 router.post("/follow", function (req, res, next) {
-  const [count, setFollow] = useFollow();
+  let [count, setFollow] = useFollow();
 
-  res.send(setFollow(++count));
+  res.send(String(setFollow(++count)));
 });
 
 module.exports = router;

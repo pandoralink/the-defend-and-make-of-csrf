@@ -12,7 +12,7 @@
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        name.innerText = xhr.response;
+        fansTotal.innerText = xhr.response;
       }
     }
   };
@@ -22,6 +22,13 @@
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "http://localhost:3000/user/follow");
     xhr.setRequestHeader("Authorization", localStorage.getItem("token"));
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          fansTotal.innerText = xhr.response;
+        }
+      }
+    };
     xhr.send();
   };
 </script>
