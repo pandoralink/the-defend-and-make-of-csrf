@@ -12,6 +12,8 @@
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "express-jwt": "^7.7.7",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
     "prettier": "^2.8.0"
   }

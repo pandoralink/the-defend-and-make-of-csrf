@@ -1,13 +1,12 @@
 <body>
-  <!-- <form action="http://localhost:3000/user/name" method="POST">
+  <form
+    action="http://localhost:3000/user/name"
+    method="POST"
+    enctype="application/json"
+  >
     <input type="hidden" name="name" value="憨批龟" />
-  </form> -->
+  </form>
 </body>
 <script>
-  // document.forms[0].submit();
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://localhost:3000/user/name");
-  xhr.setRequestHeader("Content-type", "application/json");
-  xhr.withCredentials = true;
-  xhr.send(JSON.stringify({ name: "憨批龟" }));
+  document.forms[0].submit();
 </script>

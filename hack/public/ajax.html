@@ -1,0 +1,8 @@
+<body></body>
+<script>
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "http://localhost:3000/user/name");
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.withCredentials = true;
+  xhr.send(JSON.stringify({ name: "憨批龟" }));
+</script>

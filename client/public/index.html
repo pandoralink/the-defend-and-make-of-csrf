@@ -4,7 +4,6 @@
     password: <input type="password" name="password" /><br />
     <button type="button" onclick="login()">登录</button>
   </form>
-  <!-- <button onclick="init()">123</button> -->
 </body>
 <script>
   const login = () => {
@@ -21,10 +20,5 @@
       }
     };
     xhr.send(JSON.stringify({ username, password }));
-  };
-  const init = () => {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:3000/init");
-    xhr.send();
   };
 </script>
