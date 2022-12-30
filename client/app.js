@@ -13,7 +13,16 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser("2022-12-07-22:08"));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  express.static(path.join(__dirname, "public"), {
+    setHeaders: function (res, path, stat) {
+      if (res) {
+        // TODO: 后期使用 monorepo 分割不同版本的例子，便于查看和分享
+        res.setHeader("X-Frame-Options", "DENY");
+      }
+    },
+  })
+);
 app.use(
   jwt({ secret: jwtConfig.jwtSecretKey, algorithms: ["HS256"] }).unless({
     path: [/^\/v/, /^\/user\/login/, /^\/user\/v3\/login/, /\/favicon\.ico/],
