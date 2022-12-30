@@ -18,7 +18,7 @@ app.use(
     setHeaders: function (res, path, stat) {
       if (res) {
         // TODO: 后期使用 monorepo 分割不同版本的例子，便于查看和分享
-        res.setHeader("X-Frame-Options", "DENY");
+        // res.setHeader("X-Frame-Options", "DENY");
       }
     },
   })
